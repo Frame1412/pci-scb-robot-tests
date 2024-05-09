@@ -104,3 +104,5 @@ Generate Token and Submit Payment
     Input Creadit Card information   4773760188009704    008
     Click Element    ${locator_btn_submit}
 
+test deploy
+    Open Browser
