@@ -106,3 +106,5 @@ Generate Token and Submit Payment
 
 test deploy
     Open Browser
+
+test 2
