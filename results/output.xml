@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.1 on win32)" generated="2024-05-07T15:48:34.023797" rpa="false" schemaversion="5">
+<suite id="s1" name="202405 Robot Scb" source="C:\Users\flame\OneDrive\เอกสาร\AIS\202405_robot_scb">
+<suite id="s1-s1" name="Test2" source="C:\Users\flame\OneDrive\เอกสาร\AIS\202405_robot_scb\test2.robot">
+<kw name="Set Selenium Speed" owner="Selenium2Library" type="SETUP">
+<arg>0.2</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.263441" elapsed="0.013282"/>
+</kw>
+<test id="s1-s1-t1" name="Generate Token with API" line="90">
+<kw name="Register Token WL with API">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-07T15:48:34.278386" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Basic ZGV2LWNoYW5uZWwtc2RwZzpQQHNzdzByZA=='}</msg>
+<var>${headers}</var>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+<arg>Authorization</arg>
+<arg>Basic ${API_Authorization}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.278386" elapsed="0.000000"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2024-05-07T15:48:34.279388" level="INFO">${current_datetime} = 20240507154834</msg>
+<var>${current_datetime}</var>
+<arg>result_format=%Y%m%d%H%M%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.278386" elapsed="0.001002"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2024-05-07T15:48:34.280385" level="INFO">${channelRefID} = CRID20240507154834</msg>
+<var>${channelRefID}</var>
+<arg>SEPARATOR=</arg>
+<arg>CRID</arg>
+<arg>${current_datetime}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.279388" elapsed="0.000997"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-07T15:48:34.281385" level="INFO">${option} = {'msisdn': 'FrameSCB125', 'mobile': '0821997434', 'ba': 'SCB', 'amount': '1500', 'bankAcquireID': '014', 'lang': 'en', 'currency': 'thb', 'ipAddress': '192.168.1.104', 'capture': 'I', 'merchantCode': ...</msg>
+<var>${option}</var>
+<arg>msisdn=FrameSCB125</arg>
+<arg>mobile=0821997434</arg>
+<arg>ba=SCB</arg>
+<arg>amount=1500</arg>
+<arg>bankAcquireID=014</arg>
+<arg>lang=en</arg>
+<arg>currency=thb</arg>
+<arg>ipAddress=192.168.1.104</arg>
+<arg>capture=I</arg>
+<arg>merchantCode=2024000202</arg>
+<arg>channelRefID=${channelRefID}</arg>
+<arg>subChannelId=Frametest230229No112</arg>
+<arg>terminalId=10110</arg>
+<arg>bankIssuer=SCB</arg>
+<arg>productType=MERABS</arg>
+<arg>productCode=A</arg>
+<arg>rmbFlag=Y</arg>
+<arg>city=BKK</arg>
+<arg>postCode=10240</arg>
+<arg>installmentTerm=3</arg>
+<arg>computeMethod=3</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.280385" elapsed="0.001000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-07T15:48:34.281385" level="INFO">${payload} = {'api': 'registerToken', 'commandName': 'WLRegisterPayment3D', 'channelName': 'Superduper', 'skinCode': 'mpay-th', 'callbackType': 'json', 'option': {'msisdn': 'FrameSCB125', 'mobile': '0821997434', '...</msg>
+<var>${payload}</var>
+<arg>api=registerToken</arg>
+<arg>commandName=WLRegisterPayment3D</arg>
+<arg>channelName=Superduper</arg>
+<arg>skinCode=mpay-th</arg>
+<arg>callbackType=json</arg>
+<arg>option=${option}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.281385" elapsed="0.001003"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-07T15:48:35.019721" level="INFO">POST Request : url=https://dev0-pci-api.adldigitalservice.com/api-intra/dev/superduper/v1/payment 
+ path_url=/api-intra/dev/superduper/v1/payment 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Basic ZGV2LWNoYW5uZWwtc2RwZzpQQHNzdzByZA==', 'Content-Length': '628'} 
+ body=b'{"api": "registerToken", "commandName": "WLRegisterPayment3D", "channelName": "Superduper", "skinCode": "mpay-th", "callbackType": "json", "option": {"msisdn": "FrameSCB125", "mobile": "0821997434", "ba": "SCB", "amount": "1500", "bankAcquireID": "014", "lang": "en", "currency": "thb", "ipAddress": "192.168.1.104", "capture": "I", "merchantCode": "2024000202", "channelRefID": "CRID20240507154834", "subChannelId": "Frametest230229No112", "terminalId": "10110", "bankIssuer": "SCB", "productType": "MERABS", "productCode": "A", "rmbFlag": "Y", "city": "BKK", "postCode": "10240", "installmentTerm": "3", "computeMethod": "3"}}' 
+ </msg>
+<msg time="2024-05-07T15:48:35.019721" level="INFO">POST Response : url=https://dev0-pci-api.adldigitalservice.com/api-intra/dev/superduper/v1/payment 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 07 May 2024 08:48:35 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers', 'traceid': '15a0ff47c2e6eb5003e66f7a3466f49e', 'content-security-policy': "default-src * data:; style-src  'self' 'unsafe-inline' 'unsafe-eval' data:", 'strict-transport-security': 'max-age=7776000; includeSubDomains', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '1; mode=block'} 
+ body={"status":1,"apiRefID":"PCIA1715071715304","message":"Success","messageCode":"I0000","tokenID":"dee40175e8334810a58344d96a2bea28","publicKey":"MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv/8m2t8C/E3nObTdUiUiFSkcY3pU0JeuixI6rk3dIZcet6KO0BiYVRSz2x9esqm9Q6YCcN/f7wGe2rkOMsq3lt5yipTLf8XK7ZW7oz1x7KY7BTMBwSXHxewRLtjMLcHG6l8h+1d13Fn0b/4nP/kEExdOnyNyGRLullhG9CGXxeEdLE6Jmbx6TQsqsIZG8kGUQ3cILy1ijxhoL4RKtZl+YPZQiM7FgUUTS+W8jnMbjuPrvo7xLMLigxCLCDpRGFjUaoLZO3VJMa6BznPDZ8AsExbkyY5kC9VYJOHgIXXaZcRUvxDEQlvkQtKzxivVm2O+r849pxh/sdRkL5i2w4FiNpHLb9V53EbCaXhULC8WVBJkc5np/fokJ2qYiJ1S0mG9Z1VzD96L6gz1cVAv3BWFkEs+uYEpAHrQn0m+SRS61GqFZ9Yd2wYUuvNr67OZnNc35h5X127UDZBKgC0TQT2Te+Op5fUXZL8BVYUNSh9/V2ibO3mXcaPXntJtQ4XJRh+lxdrufUGR66y8NRAblfr8KGFXg4sak8NPtVsFPPSFe1gt1FSpT3htK2rbUnXhrbZ4N9mWrws6Tfmheuy6Y40uq9d7qH5Wr7cWOG6KGYnmLb2q0tat5GmKSuA9XyxaSGMQKcXwOkcm/n9tcX0GxmplB11wV6I/zK8ysUcoUCp9RGkCAwEAAQ=="} 
+ </msg>
+<msg time="2024-05-07T15:48:35.019721" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${API_Base_Url}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-07T15:48:34.282388" elapsed="0.737333"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-05-07T15:48:35.019721" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.019721" elapsed="0.006626"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.026948" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-05-07T15:48:35.026948" level="INFO">${json_response} = {'status': 1, 'apiRefID': 'PCIA1715071715304', 'message': 'Success', 'messageCode': 'I0000', 'tokenID': 'dee40175e8334810a58344d96a2bea28', 'publicKey': 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv/...</msg>
+<var>${json_response}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.026948" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-05-07T15:48:35.026948" level="INFO">${token_id} = dee40175e8334810a58344d96a2bea28</msg>
+<var>${token_id}</var>
+<arg>${json_response['tokenID']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.026948" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nToken ID: ${token_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.026948" elapsed="0.000000"/>
+</kw>
+<kw name="Open Browser" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:35.026948" level="INFO">Opening browser 'gc' to base url 'https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=dee40175e8334810a58344d96a2bea28&amp;channelName=SuperDuper'.</msg>
+<arg>https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&amp;channelName=SuperDuper</arg>
+<arg>${browser}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-05-07T15:48:35.026948" elapsed="3.525240"/>
+</kw>
+<kw name="Maximize Browser Window" owner="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-05-07T15:48:38.552188" elapsed="0.228953"/>
+</kw>
+<status status="PASS" start="2024-05-07T15:48:34.277347" elapsed="4.503794"/>
+</kw>
+<kw name="Input Creadit Card">
+<kw name="Wait Until Element Is Visible" owner="Selenium2Library">
+<arg>${locator_input_cc}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-05-07T15:48:38.781141" elapsed="0.423135"/>
+</kw>
+<kw name="Input Text" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:39.204276" level="INFO">Typing text '4773760188009704' into text field 'id=cc-number-input'.</msg>
+<arg>${locator_input_cc}</arg>
+<arg>${Card_number}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:39.204276" elapsed="0.709009"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="Selenium2Library">
+<arg>${locator_input_expiredmonth_cc}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-05-07T15:48:39.913285" elapsed="0.419506"/>
+</kw>
+<kw name="Click Element" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:40.332791" level="INFO">Clicking element 'id=expiredMonth'.</msg>
+<arg>${locator_input_expiredmonth_cc}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:40.332791" elapsed="0.446994"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="Selenium2Library">
+<arg>xpath://*[@id="expiredMonth"]/option[3]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-05-07T15:48:40.779785" elapsed="0.417425"/>
+</kw>
+<kw name="Click Element" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:41.197210" level="INFO">Clicking element 'xpath://*[@id="expiredMonth"]/option[3]'.</msg>
+<arg>xpath://*[@id="expiredMonth"]/option[3]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:41.197210" elapsed="0.426412"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="Selenium2Library">
+<arg>${locator_input_expiredYear_cc}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-05-07T15:48:41.623622" elapsed="0.417660"/>
+</kw>
+<kw name="Click Element" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:42.041282" level="INFO">Clicking element 'id=expiredYear'.</msg>
+<arg>${locator_input_expiredYear_cc}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:42.041282" elapsed="0.444396"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="Selenium2Library">
+<arg>xpath://*[@id="expiredYear"]/option[6]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-05-07T15:48:42.485678" elapsed="0.417281"/>
+</kw>
+<kw name="Click Element" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:42.902959" level="INFO">Clicking element 'xpath://*[@id="expiredYear"]/option[6]'.</msg>
+<arg>xpath://*[@id="expiredYear"]/option[6]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:42.902959" elapsed="0.423062"/>
+</kw>
+<kw name="Input Text" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:43.326021" level="INFO">Typing text '008' into text field 'id=cvv'.</msg>
+<arg>${locator_input_cvv_cc}</arg>
+<arg>${Card_CVV}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:43.326021" elapsed="0.675940"/>
+</kw>
+<arg>4773760188009704</arg>
+<arg>008</arg>
+<status status="PASS" start="2024-05-07T15:48:38.781141" elapsed="5.220820"/>
+</kw>
+<kw name="Click Element" owner="Selenium2Library">
+<msg time="2024-05-07T15:48:44.001961" level="INFO">Clicking element 'id=cc-submit-btn'.</msg>
+<arg>${locator_btn_submit}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-05-07T15:48:44.001961" elapsed="0.465539"/>
+</kw>
+<status status="PASS" start="2024-05-07T15:48:34.276723" elapsed="10.190777"/>
+</test>
+<status status="PASS" start="2024-05-07T15:48:34.053125" elapsed="10.414375"/>
+</suite>
+<status status="PASS" start="2024-05-07T15:48:34.033561" elapsed="10.438605"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="202405 Robot Scb">202405 Robot Scb</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Test2">202405 Robot Scb.Test2</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
