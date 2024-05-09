@@ -108,3 +108,4 @@ test deploy
     Open Browser
 
 test 2
+    Open Browser
