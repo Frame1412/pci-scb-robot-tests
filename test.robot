@@ -1,8 +1,9 @@
 *** Settings ***
-Library           Selenium2Library
+Library           SeleniumLibrary
 Library           RequestsLibrary
 Library           DateTime
-Suite Setup       set Selenium Speed    0.2
+Library           RPA.Windows
+# Suite Setup       set Selenium Speed    0.2
 
 *** Variables ***
 ${API_Base_Url}                    https://dev0-pci-api.adldigitalservice.com/api-intra/dev/superduper/v1/payment
@@ -13,6 +14,7 @@ ${locator_input_expiredmonth_cc}   id=expiredMonth
 ${locator_input_expiredYear_cc}    id=expiredYear
 ${locator_input_cvv_cc}            id=cvv
 ${locator_btn_submit}              id=cc-submit-btn
+${locator_pay_to_key}              id=pay-to-key
 
 *** Keywords ***
 Register Token WL with API
@@ -67,34 +69,40 @@ Register Token WL with API
     ${token_id}=    Set Variable    ${json_response['tokenID']}
     # แสดงค่า Token ID ที่ได้
     Log To Console    \nToken ID: ${token_id}
+    Set Global Variable    ${token_id}
 
     # นำค่า Token id ที่ได้จาก Response มาเปิดบนเว็บ Browser โดยนำเลข Token ที่ได้ไปแทรกในลิงค์ 
     Open Browser    
     ...    https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper
     ...    ${browser}
+    ...    options=add_experimental_option("detach", True)
     Maximize Browser Window
 
 Input Creadit Card information
     [Documentation]    Input credit card information and submit.
     Wait Until Element Is Visible    ${locator_input_cc}
     # ประกาศตัวแปร Argument ไว้สำหรับกรอกข้อมูล Cardnumber และ รหัส CVV
-    [Arguments]    ${Card_number}    ${Card_CVV}
-    Input Text    ${locator_input_cc}    ${Card_number}
+    [Arguments]                      ${Card_number}    ${Card_CVV}
+    Input Text                       ${locator_input_cc}    ${Card_number}
     
     #เลือก expiredMont โดยระบุแบบเจาะจงข้อมูลตามบัตร
     Wait Until Element Is Visible    ${locator_input_expiredmonth_cc}
-    Click Element    ${locator_input_expiredmonth_cc}    
+    Click Element                    ${locator_input_expiredmonth_cc}    
     Wait Until Element Is Visible    xpath://*[@id="expiredMonth"]/option[3]
-    Click Element    xpath://*[@id="expiredMonth"]/option[3]
+    Click Element                    xpath://*[@id="expiredMonth"]/option[3]
     
     # เลือก expiredYear โดยระบุแบบเจาะจงข้อมูลตามบัตร
     Wait Until Element Is Visible    ${locator_input_expiredYear_cc}
-    Click Element    ${locator_input_expiredYear_cc}
+    Click Element                    ${locator_input_expiredYear_cc}
     Wait Until Element Is Visible    xpath://*[@id="expiredYear"]/option[6]
-    Click Element    xpath://*[@id="expiredYear"]/option[6]
+    Click Element                    xpath://*[@id="expiredYear"]/option[6]
 
     # ระบุวันหมดอายุของบัตร
-    Input Text    ${locator_input_cvv_cc}    ${Card_CVV}
+    Input Text                       ${locator_input_cvv_cc}    ${Card_CVV}
+
+Submit
+    [Documentation]    คำสั่งสำหรับกดปุ่ม ตกลง ในหน้า White lable
+    Click Element                    ${locator_btn_submit}
 
 *** Test Cases ***
 Generate Token and Submit Payment
@@ -102,11 +110,21 @@ Generate Token and Submit Payment
     [Tags]    positive
     Register Token WL with API
     Input Creadit Card information   4773760188009704    008
-    Click Element    ${locator_btn_submit}
+    Submit
 
-test deploy
-    Open Browser
-
-test 2
-    Open Browser
-test 333
+# Generate Token and Click New Tab
+#     [Documentation]    Generate token via API and submit payment.
+#     [Tags]    Negative
+#     Register Token WL with API
+#     Input Creadit Card information    4773760188009704    008
+#     Execute JavaScript    window.open('https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper','_blank')
+#     Wait Until Element Is Visible    ${locator_input_cc}
+#     Select    ${locator_pay_to_key}   จ่ายเงินให้กับ
+#     Input Creadit Card information    4773760188009704    008
+    
+Generate Token and Click New Tab
+    Register Token WL with API
+    Input Creadit Card information    4773760188009704    008
+    Open Browser    https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper    ${browser}
+    ...    options=add_experimental_option("detach", True)
+    Input Creadit Card information    4773760188009704    008
