@@ -57,14 +57,6 @@ Register Token WL with API
     # แสดงค่า Token ID ที่ได้
     Log To Console    \nToken ID: ${token_id}
     Set Global Variable    ${token_id}
-    # RETURN    ${token_id}
-
-    # นำค่า Token id ที่ได้จาก Response มาเปิดบนเว็บ Browser โดยนำเลข Token ที่ได้ไปแทรกในลิงค์ 
-    # Open Browser    
-    # ...    https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper
-    # ...    ${browser}
-    # ...    options=add_experimental_option("detach", True)
-    # Maximize Browser Window
 
 Open Browser WhiteLabe
     Open Browser    https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper    ${browser}    # robotcode: ignore
@@ -72,6 +64,7 @@ Open Browser WhiteLabe
 Input Creadit Card information
     [Documentation]    Input credit card information and submit.
     Wait Until Element Is Visible    ${locator_input_cc}
+    
     # ประกาศตัวแปร Argument ไว้สำหรับกรอกข้อมูล Cardnumber และ รหัส CVV
     [Arguments]                      ${Card_number}    ${Card_CVV}
     Input Text                       ${locator_input_cc}    ${Card_number}
