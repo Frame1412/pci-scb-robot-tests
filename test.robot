@@ -5,7 +5,9 @@ Resource    keyword.robot
 Generate Token and Submit Payment
     [Documentation]    Generate token via API and submit payment.
     [Tags]    positive
+    Get Current Date And Catenate
     Register Token WL with API
+    Open Browser WhiteLabe
     Input Creadit Card information   4773760188009704    008
     Submit
 
@@ -20,11 +22,34 @@ Generate Token and Submit Payment
 #     Input Creadit Card information    4773760188009704    008
     
 Generate Token and Open New Browser
-    [Documentation]    Create a token via API. Open 2 browsers with the same token and enter credit card information.
+    [Documentation]    ใช้ Tokenid เดียวนำมาจ่าย 2 ครั้ง
     [Tags]    negative
+    Get Current Date And Catenate
     Register Token WL with API
-    Input Creadit Card information    4773760188009704    008
-    Open Browser    https://dev0-pci-api.adldigitalservice.com/web/dev/superduper?token=${token_id}&channelName=SuperDuper    ${browser}
-    ...    options=add_experimental_option("detach", True)
+    Open Browser WhiteLabe
     Input Creadit Card information    4773760188009704    008
     Submit
+    Open Browser WhiteLabe
+
+# Genarate Token
+#     [Documentation]    genarate a token 
+#     [Tags]    negative
+#     Register 2 Token WL with API
+
+Genarate 2 Token with the same channelreftid
+    [Documentation]    ทำการสร้าง Tokenid สองครั้งด้วย Channelreftid เดียวกันแต่คนละเลข Tokenid
+    [Tags]    negative
+    Get Current Date And Catenate
+    Register Token WL with API
+    Open Browser WhiteLabe
+    Input Creadit Card information    4773760188009704    008
+    Register Token WL with API
+
+WhiteLabel3D
+    [Documentation]    case #3 ในเอกสารพี่เจษ
+    Get Current Date And Catenate
+    Register Token WL with API
+    Open Browser WhiteLabe
+    Input Creadit Card information    4773760188009704    008
+    Submit
+    Open Browser WhiteLabe
